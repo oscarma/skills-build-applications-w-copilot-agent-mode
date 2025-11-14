@@ -1,8 +1,10 @@
+
 import React, { useEffect, useState } from 'react';
+import { getApiBaseUrl } from '../apiBaseUrl';
 
 const Activities = () => {
   const [activities, setActivities] = useState([]);
-  const apiUrl = `https://${process.env.REACT_APP_CODESPACE_NAME}-8000.app.github.dev/api/activities/`;
+  const apiUrl = getApiBaseUrl() + 'activities/';
 
   useEffect(() => {
     console.log('Fetching activities from:', apiUrl);
