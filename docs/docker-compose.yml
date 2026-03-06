@@ -1,0 +1,55 @@
+version: "2.0"
+
+services:
+  dev_station:
+    image: "dev_station_neti:7.0.0"
+    container_name: dev-station-container
+    restart: always
+    user: utibco
+    working_dir: "/home/utibco"
+    networks:
+      bridgeCDS:
+        ipv4_address: 10.66.33.2
+    ports:
+      - "280:80" # NETi Apache HTTP
+      - "222:22" # sftp/ssh
+      - "57901:5901" # VNC used
+      - "57900:5900" # VNC?
+      - "8787:8787" # remote debug NETi
+      - "55432:5432" # remote debug CDS
+      - "8080:8080" # JBoss, Apache port must be used, just for testing purpouses
+      - "9990:9990" # JBoss management console user: admin pass: bBm42[`KY=w\z6%P url: http://localhost:9990
+    hostname: ce7ad4a88947
+    mac_address: "8a:ca:58:b9:e9:51"
+    environment:
+      PATH: "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+      DISPLAY: ":1"
+      VNC_COL_DEPTH: "24"
+      VNC_RESOLUTION: "1920x1080"
+      VNC_PW: "utibco"
+      JAVA_HOME: "/soft/java/jdk1.8.0_121"
+      JBOSS_HOME: "/home/utibco/sw/jboss-eap-6.4"
+    entrypoint: ["/home/utibco/scripts/entrypoint.sh", "--tail-log"]
+    #volumes:
+      #- ./Docker/logs/neti:/logs
+      #- ./Docker/logs/cds:/app/cds/capa_prd/log
+      #- ./Docker/logs/jboss:/home/utibco/sw/jboss-eap-6.4/standalone/log
+      #- ./Docker/develop:/home/utibco/develop
+      #- ./Docker/jboss_deploy:/home/utibco/sw/jboss-eap-6.4/standalone/tmp/vfs/temp
+
+networks:
+  bridgeCDS:
+    driver: bridge
+    #driver_opts:
+      #com.docker.network.bridge.default_bridge: "true"
+      #com.docker.network.bridge.enable_icc: "true"
+      #com.docker.network.bridge.enable_ip_masquerade: "true"
+      #com.docker.network.bridge.host_binding_ipv4: 0.0.0.0
+      #com.docker.network.bridge.name: docker0
+      #com.docker.network.driver.mtu: 1500
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.66.33.10/24
+          gateway: 10.66.33.10
+          ip_range: 10.66.33.0/24
