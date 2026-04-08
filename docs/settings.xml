@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<settings xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.2.0 http://maven.apache.org/xsd/settings-1.2.0.xsd" 
+          xmlns="http://maven.apache.org/SETTINGS/1.2.0"
+          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  
+  
+ <mirrors>
+  <mirror>
+    <id>artifactory-mirror</id>
+    <name>Artifactory</name>
+    <url>https://artifactory.apps.devops.aws.bancsabadell.com/artifactory/libs-release</url>
+    <mirrorOf>*</mirrorOf>
+  </mirror>
+ </mirrors>
+
+ <servers>
+  <server>
+    <id>artifactory-mirror</id>
+    <username>P472808</username>
+  </server>
+  <server>
+    <id>sabadell-release</id>
+    <username>P472808</username>
+  </server>
+  <server>
+    <id>sabadell-snapshot</id>
+    <username>P472808</username>
+  </server>
+ </servers>
+
+ <profiles>
+    <profile>
+      <id>artifactory-sabadell</id>
+      <repositories>
+        <repository>
+          <id>sabadell-release</id>
+          <name>libs-release</name>
+          <url>https://artifactory.apps.devops.aws.bancsabadell.com/artifactory/libs-release/</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </repository>
+        <repository>
+          <id>sabadell-snapshot</id>
+          <name>libs-snapshot</name>
+          <url>https://artifactory.apps.devops.aws.bancsabadell.com/artifactory/libs-snapshot/</url>
+          <releases><enabled>false</enabled></releases>
+          <snapshots><enabled>true</enabled></snapshots>
+        </repository>
+      </repositories>
+      
+      <pluginRepositories>
+        <pluginRepository>
+          <id>sabadell-release</id>
+          <name>plugins-release</name>
+          <url>https://artifactory.apps.devops.aws.bancsabadell.com/artifactory/plugins-release/</url>
+          <releases><enabled>true</enabled></releases>
+          <snapshots><enabled>false</enabled></snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+    </profile>
+ </profiles>
+
+  <activeProfiles>
+    <activeProfile>artifactory-sabadell</activeProfile>
+  </activeProfiles>
+</settings>
